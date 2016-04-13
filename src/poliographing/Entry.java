@@ -10,7 +10,7 @@ package poliographing;
  *
  * @author csstudent
  */
-public class Entry {
+public class Entry implements Comparable<Entry>{
     private Dim dim;
     private int Value;
     public Entry(){}
@@ -25,6 +25,18 @@ public class Entry {
     
     public String toString(){
         return "" + dim.getLabel() + ": " + Value + "% immunized";
+    }
+    
+    @Override
+    public int compareTo(Entry e){
+        if(this.dim.getLabel() == null){
+            return -1;
+        }
+        
+        if(e.dim.getLabel() == null){
+            return 1;
+        }
+        return dim.getLabel().compareTo(e.dim.getLabel());
     }
     
 }

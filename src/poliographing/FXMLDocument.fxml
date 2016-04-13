@@ -7,7 +7,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="869.0" prefWidth="1204.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poliographing.FXMLDocumentController">
    <children>
-      <BarChart fx:id="chart" prefHeight="200.0" prefWidth="320.0" title="Polio Vaccination Percentages by Country" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BarChart fx:id="chart" barGap="1.0" categoryGap="0.0" prefHeight="200.0" prefWidth="320.0" title="Polio Vaccination Percentages by Country" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>

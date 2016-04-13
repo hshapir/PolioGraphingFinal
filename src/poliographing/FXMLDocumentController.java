@@ -7,6 +7,7 @@ package poliographing;
 
 import com.google.gson.Gson;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.event.ActionEvent;
@@ -60,8 +61,10 @@ public class FXMLDocumentController implements Initializable {
         System.out.println(data.toString());
         
         XYChart.Series<String, Number> countries = new XYChart.Series();
-        countries.setName("Country");
-        for(Entry e : data.getEntries()){
+        countries.setName("% Immunized for Polio");
+        Entry[] countryArray = data.getEntries();
+        Arrays.sort(countryArray);
+        for(Entry e : countryArray){
             String cnty = e.getDim().getLabel();
             if(cnty != null){
                 int val = e.getValue();
