@@ -10,11 +10,15 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -30,6 +34,25 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("You clicked me!");
         //.setText("Dhev Does!");
     }
+    
+    @FXML
+    private MenuBar topMenu;
+    
+    @FXML
+    private void handleCloseButtonAction(ActionEvent event) {
+        Platform.exit();
+    }
+    
+    @FXML
+    private void handleFilterChangeAction(ActionEvent event){
+        
+    }
+    
+    @FXML
+    private MenuItem closeButton, aboutButton;
+    
+    @FXML
+    private TextField minField, maxField;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
