@@ -6,19 +6,25 @@
 package poliographing;
 
 import com.google.gson.Gson;
+import static com.sun.javafx.fxml.expression.Expression.or;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.application.Platform;
+import static javafx.beans.binding.Bindings.or;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import static javax.management.Query.*;
 
 /**
  *
@@ -28,11 +34,13 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private BarChart<String,Number> chart;
+    
+    @FXML
+    private Button filterActivator;
             
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        //.setText("Dhev Does!");
+       setUpGraph();
     }
     
     @FXML
@@ -44,8 +52,13 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void handleFilterChangeAction(ActionEvent event){
-        
+    
+    private void handleAboutButtonAction(ActionEvent event){
+        Alert aboutAlert = new Alert(AlertType.INFORMATION);
+        aboutAlert.setTitle("About this Program");
+        aboutAlert.setHeaderText(null);
+        aboutAlert.setContentText("I made this program for an AP Computer Science class. It is meant to show polio vaccination percentages from 1980. If you've come across this on GitHub and you're not Mr. Wheadon, I'm not really sure why you're looking at this. Enjoy!");
+        aboutAlert.showAndWait();
     }
     
     @FXML
@@ -54,8 +67,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField minField, maxField;
     
+    private DataSet data;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         String s = "http://apps.who.int/gho/athena/data/GHO/WHS4_544.json?profile=simple&filter=YEAR:1980";
         URL myUrl = null;
         try{
@@ -78,11 +94,39 @@ public class FXMLDocumentController implements Initializable {
             str += scan.nextLine() + "\n";
         }
         scan.close();
+        
+        minField.setText("0");
+        maxField.setText("100");
 
         Gson gson = new Gson();
-        DataSet data = gson.fromJson(str, DataSet.class);
-        System.out.println(data.toString());
+        data = gson.fromJson(str, DataSet.class);
+        setUpGraph();
+    }    
+    
+    public void setUpGraph(){
+        chart.getData().clear();
+        int min = 0;
+        try{
+            min = Integer.parseInt(minField.getText());
+        } catch(Exception e){
+            minField.setText("0");
+            sendIntError();
+        }
+        int max = 100;
+        try{
+            max = Integer.parseInt(maxField.getText());
+        } catch(Exception e){
+            maxField.setText("100");
+            sendIntError();
+        }
         
+        if(min > max || max > 100 || min < 0){
+            min = 0;
+            max = 100;
+            minField.setText("0");
+            maxField.setText("100");
+            sendIntError();
+        }
         XYChart.Series<String, Number> countries = new XYChart.Series();
         countries.setName("% Immunized for Polio");
         Entry[] countryArray = data.getEntries();
@@ -91,11 +135,20 @@ public class FXMLDocumentController implements Initializable {
             String cnty = e.getDim().getLabel();
             if(cnty != null){
                 int val = e.getValue();
-                countries.getData().add(new XYChart.Data(cnty, val));
+                if(val >= min && val <= max){
+                    countries.getData().add(new XYChart.Data(cnty, val));
+                }
             }
 
         }
         chart.getData().add(countries);
-    }    
+    }
+    
+    public void sendIntError(){
+        Alert intAlert = new Alert(AlertType.ERROR);
+        intAlert.setTitle("Invalid integer");
+        intAlert.setContentText("Please enter valid integers from 0 to 100 where the minimum is less than the maximum");
+        intAlert.showAndWait();
+    }
     
 }

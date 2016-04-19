@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +21,14 @@ public class PolioGraphing extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        
+        final String os = System.getProperty("os.name");
+        if(os != null && os.startsWith("Mac")){
+            MenuBar menu = (MenuBar) root.lookup("#mainmenu");
+            if(menu != null){
+                menu.setUseSystemMenuBar(true);
+            }
+        }
         
         Scene scene = new Scene(root);
         
