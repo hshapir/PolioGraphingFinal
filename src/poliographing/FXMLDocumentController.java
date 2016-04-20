@@ -24,6 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 import static javax.management.Query.*;
 
 /**
@@ -41,10 +43,15 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
        setUpGraph();
+       AudioClip scream = new AudioClip(getClass().getResource("TorturedScream.mp3").toString());
+       scream.play();
     }
     
     @FXML
     private MenuBar topMenu;
+    
+    @FXML
+    private ImageView thePrivate;
     
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
@@ -101,6 +108,16 @@ public class FXMLDocumentController implements Initializable {
         Gson gson = new Gson();
         data = gson.fromJson(str, DataSet.class);
         setUpGraph();
+        AudioClip fullMetal = new AudioClip(getClass().getResource("FullMetalJacket.mp3").toString());
+        fullMetal.play();
+        try{
+            Thread.sleep(17000);
+        } catch (Exception e){}
+        thePrivate.setVisible(true);
+        try{
+            Thread.sleep(2000);
+        } catch (Exception e){}
+        thePrivate.setVisible(false);
     }    
     
     public void setUpGraph(){
