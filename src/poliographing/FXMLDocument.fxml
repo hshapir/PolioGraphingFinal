@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="869.0" prefWidth="1204.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poliographing.FXMLDocumentController">
+<AnchorPane id="AnchorPane" onMouseClicked="#hideThePrivate" prefHeight="869.0" prefWidth="1204.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poliographing.FXMLDocumentController">
    <children>
       <BorderPane prefHeight="869.0" prefWidth="1204.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -42,7 +42,7 @@
                         <Font size="51.0" />
                      </font>
                   </Label>
-                  <BarChart fx:id="chart" barGap="1.0" categoryGap="0.0" legendVisible="false" prefHeight="200.0" prefWidth="320.0" title="Polio Vaccination Percentages by Country" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                  <BarChart fx:id="chart" barGap="1.0" categoryGap="0.0" legendVisible="false" prefHeight="200.0" prefWidth="320.0" title="Polio Vaccination Percentages by Country, 1980" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -62,7 +62,7 @@
             </AnchorPane>
          </center>
       </BorderPane>
-      <ImageView fx:id="thePrivate" fitHeight="869.0" fitWidth="1204.0" pickOnBounds="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="thePrivate" fitHeight="869.0" fitWidth="1237.0" mouseTransparent="true" onMouseClicked="#hideThePrivate" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@PrivatePyle.jpg" />
          </image>

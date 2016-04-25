@@ -25,6 +25,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 import static javax.management.Query.*;
 
@@ -56,6 +57,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         Platform.exit();
+    }
+    
+    @FXML
+    private void hideThePrivate(MouseEvent event){
+        if(thePrivate.isVisible() == true){
+            thePrivate.setVisible(false);
+        }
     }
     
     @FXML
@@ -110,14 +118,7 @@ public class FXMLDocumentController implements Initializable {
         setUpGraph();
         AudioClip fullMetal = new AudioClip(getClass().getResource("FullMetalJacket.mp3").toString());
         fullMetal.play();
-        try{
-            Thread.sleep(17000);
-        } catch (Exception e){}
         thePrivate.setVisible(true);
-        try{
-            Thread.sleep(2000);
-        } catch (Exception e){}
-        thePrivate.setVisible(false);
     }    
     
     public void setUpGraph(){
